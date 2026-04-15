@@ -265,7 +265,7 @@
       <div class="legend-item"><span class="legend-swatch" style="background:#5b88d6"></span><span>ВС Судана</span></div>
       <div class="legend-item"><span class="legend-swatch" style="background:#d99696"></span><span>СБР</span></div>
       <div class="state-hover-block" aria-live="polite">
-        <div class="state-hover-name" id="stateHoverName"></div>
+        <div class="state-hover-name" id="stateHoverName">Наведите курсором на штат</div>
       </div>
       <div class="legend-note">Карта носит ознакомительный и схематический характер. Она не отражает в полной мере реальное распределение контроля над территорией, которое постоянно меняется. Ее задача — прежде всего показать географию конфликта и расположение ключевых городов, упоминаемых в таймлайне. Небольшая часть территории контролируется прочими акторами, но в основном она разделена между СБР и ВС Судана. Более точное распределение контроля над территорией на 8 апреля 2026 года можно <a href="https://acleddata.com/qa/qa-how-do-escalating-tensions-middle-east-affect-sudan-conflict" target="_blank" rel="noopener noreferrer">найти</a> у ACLED.</div>
     </aside>
@@ -326,7 +326,7 @@
 
   function setStateHover(name) {
     if (!name) {
-      stateHoverName.textContent = '';
+      stateHoverName.textContent = 'Наведите курсором на штат';
       return;
     }
 
