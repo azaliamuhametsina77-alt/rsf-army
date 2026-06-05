@@ -263,7 +263,6 @@
         font-size: 12px;
       }
 
-    }
   </style>
 </head>
 <body>
@@ -304,6 +303,18 @@
 
   const CITIES = {"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {"id": "khartoum", "name": "Хартум", "tooltip": "В апреле 2023 года в Хартуме начались первые крупные бои. В марте 2025 года армия объявила об освобождении большей части города.", "priority": 2}, "geometry": {"type": "Point", "coordinates": [32.5598994, 15.5006544]}}, {"type": "Feature", "properties": {"id": "portsudan", "name": "Порт-Судан", "tooltip": "В мае 2025 года СБР впервые ударили дронами по Порт-Судану — временной столице страны.", "priority": 2}, "geometry": {"type": "Point", "coordinates": [37.211709, 19.619217]}}, {"type": "Feature", "properties": {"id": "wadmadani", "name": "Вад-Мадани", "tooltip": "В декабре 2023 года падение Вад-Мадани стало тяжелым ударом для армии и усугубило гуманитарную ситуацию. В январе 2025 года армия вернула город.", "priority": 1}, "geometry": {"type": "Point", "coordinates": [33.5309561, 14.3965781]}}, {"type": "Feature", "properties": {"id": "alfasher", "name": "Эль-Фашир", "tooltip": "В апреле 2024 года СБР начали штурм Эль-Фашира, последней столицы Дарфура, находившейся вне их контроля. В октябре 2025 года город пал, а в феврале 2026 года ООН заявила о признаках геноцида в Эль-Фашире.", "priority": 2}, "geometry": {"type": "Point", "coordinates": [25.3555559, 13.6238244]}}, {"type": "Feature", "properties": {"id": "nyala", "name": "Ньяла", "tooltip": "Осенью 2023 года СБР взяли Ньялу, столицу Южного Дарфура. В июле 2025 года именно здесь СБР объявили о создании параллельного правительства.", "priority": 1}, "geometry": {"type": "Point", "coordinates": [24.8795115, 12.0505098]}}, {"type": "Feature", "properties": {"id": "zalingei", "name": "Залингей", "tooltip": "Осенью 2023 года СБР взяли Залингей, столицу Центрального Дарфура.", "priority": 1}, "geometry": {"type": "Point", "coordinates": [23.4738132, 12.9134096]}}, {"type": "Feature", "properties": {"id": "elgeneina", "name": "Эль-Генейна", "tooltip": "В июне 2023 года в Эль-Генейне произошли массовые убийства народа масалит и резкое обострение этнического насилия.", "priority": 1}, "geometry": {"type": "Point", "coordinates": [22.4459786, 13.4420205]}}, {"type": "Feature", "properties": {"id": "babanusa", "name": "Бабануса", "tooltip": "В декабре 2025 года СБР взяли Бабанусу — стратегический транспортный узел Западного Кордофана.", "priority": 1}, "geometry": {"type": "Point", "coordinates": [27.8095803, 11.3305456]}}, {"type": "Feature", "properties": {"id": "dilling", "name": "Аль-Даландж", "tooltip": "В январе 2026 года армия прорвала осаду аль-Даланджа, одного из крупнейших городов фронта в Кордофане.", "priority": 1}, "geometry": {"type": "Point", "coordinates": [29.6564076, 12.0474628]}}, {"type": "Feature", "properties": {"id": "sennar", "name": "Сеннар", "tooltip": "В ноябре 2024 года армия прорвала фронт в Сеннаре и начала вытеснять СБР из центрального Судана.", "priority": 1}, "geometry": {"type": "Point", "coordinates": [33.6103555, 13.5424054]}}]};
 
+    function addNonBreakingSpaces(text) {
+    const words = ['в', 'во', 'для', 'и', 'о', 'об', 'на', 'по', 'с', 'со', 'у', 'из', 'к', 'от', 'за', 'под', 'над', 'без', 'до', 'при', 'через', 'между', 'ради'];
+    const regex = new RegExp(`\\b(${words.join('|')})\\s`, 'gi');
+    return text.replace(regex, (match, word) => word + '\u00A0');
+  }
+
+  // Применяем ко всем тултипам
+  CITIES.features.forEach(feature => {
+    if (feature.properties.tooltip) {
+      feature.properties.tooltip = addNonBreakingSpaces(feature.properties.tooltip);
+    }
+  });
 
   const map = new maplibregl.Map({
     container: 'map',
